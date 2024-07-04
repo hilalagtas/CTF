@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Arka planın sınırlarını aşmasını önler */
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://ozenduvarkagidi.com.tr/images/urunler/Sulu-Boya-Soft-Renk-Cicekler-Duvar-Kagidi-resim-13142.jpg?rand=69715');
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: blur(5px); /* Sadece arka planı bulanıklaştırma */
+            z-index: -1; /* Arka planın içeriğin arkasında kalmasını sağlar */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            position: relative; /* İçerikle arka plan arasında düzenleme yapar */
+            z-index: 1; /* İçeriğin arka planın önünde kalmasını sağlar */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div> <!-- Arka plan için özel bir katman ekliyoruz -->
+    <div class="container">
+        <h1>Image Prediction</h1>
+        <form action="/prediction" method="post" enctype="multipart/form-data">
+            <label for="img">Upload an image:</label>
+            <input type="file" id="img" name="img" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+        <!-- Sonuç alanı başlangıcı -->
+        <div class="result">
+            {% if prediction %}
+                <p>Prediction: {{ prediction }}</p>
+            {% endif %}
+            {% if error %}
+                <p>Error: {{ error }}</p>
+            {% endif %}
+        </div>
+        <!-- Sonuç alanı sonu -->
+        <div class="footer">
+            <p>Powered by <a href="https://www.tensorflow.org/" target="_blank">TensorFlow</a> & <a href="https://firebase.google.com/" target="_blank">Firebase</a></p>
+        </div>
+    </div>
+</body>
+</html>

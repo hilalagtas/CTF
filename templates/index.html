@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt ve Giriş Formu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f3e6ff, #fce9d4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-width: 90%;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #6a0dad;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #500b77;
+        }
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+        .message.success {
+            border-color: #4CAF50;
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .message.error {
+            border-color: #f44336;
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h2>Kayıt Formu</h2>
+    <form action="/kayit" method="post">
+        <input type="text" id="ad" name="ad" placeholder="Ad" required>
+        <input type="text" id="soyad" name="soyad" placeholder="Soyad" required>
+        <input type="tel" id="telefon" name="telefon" placeholder="Telefon Numarası" pattern="[0-9]{10}" required>
+        <input type="email" id="email" name="email" placeholder="E-mail" required>
+        <input type="password" id="sifre" name="sifre" placeholder="Şifre" required>
+        <input type="submit" value="Kayıt Ol">
+    </form>
+</div>
+
+<div class="container">
+    <h2>Giriş Formu</h2>
+    <form action="/giris" method="post">
+        <input type="email" id="giris_email" name="giris_email" placeholder="E-mail" required>
+        <input type="password" id="giris_sifre" name="giris_sifre" placeholder="Şifre" required>
+        <input type="submit" value="Giriş Yap">
+    </form>
+</div>
+
+</body>
+</html>
